@@ -16,9 +16,20 @@ Script accepts 3 parameters:
 2. Email subject (optional)
 3. Email body (optional)
 
-Usage example:
+## Usage example
 ```bash
 php email-test.php user@example.org "Test email" "This is a test email"
+```
+
+## Sample output
+```console
+user@server:/var/www/web# php email-test.php test-prdnmijk9@srv1.mail-tester.com
+Detected PHP 8.2.12
+Detected Joomla 3.10.12
+Email recipient: test-prdnmijk9@srv1.mail-tester.com
+Email subject: Test email from Joomla
+Email body: This is a test email from Joomla.
+Email sent. Check the mailbox.
 ```
 
 # Useful links
