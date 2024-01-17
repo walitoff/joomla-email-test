@@ -4,6 +4,7 @@
 This is a simple script to test the email sending functionality of Joomla.
 It allows sending an email to a specific address with a specific subject and body.
 This helps to confirm that the email settings are correct and the emails are sent correctly.
+The script supports all available Joomla mail configuration options, including SMTP and PHPMailer.
 
 # Usage
 1. Download the script
