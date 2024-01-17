@@ -1,5 +1,7 @@
-![Static Badge](https://img.shields.io/badge/3%2B-joomla?logo=joomla&label=Joomla&logoColor=white&color=blue&labelColor=black&style=for-the-badge)
-![Static Badge](https://img.shields.io/badge/7.4%2B-joomla?logo=php&label=PHP&logoColor=white&color=darkgreen&labelColor=black&style=for-the-badge)
+![Joomla Badge](https://img.shields.io/badge/3%2B-joomla?logo=joomla&label=Joomla&logoColor=white&color=blue&labelColor=black&style=for-the-badge)
+![PHP Badge](https://img.shields.io/badge/7.4%2B-joomla?logo=php&label=PHP&logoColor=white&color=darkgreen&labelColor=black&style=for-the-badge)
+
+![Banner](media/email-tester.jpg)
 
 This is a simple script to test the email sending functionality of Joomla.
 It allows sending an email to a specific address with a specific subject and body.
