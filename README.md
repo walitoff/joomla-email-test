@@ -1,4 +1,4 @@
-![Joomla Badge](https://img.shields.io/badge/3%2B-joomla?logo=joomla&label=Joomla&logoColor=white&color=blue&labelColor=black&style=for-the-badge)
+![Joomla Badge](https://img.shields.io/badge/3%2C4-joomla?logo=joomla&label=Joomla&logoColor=white&color=blue&labelColor=black&style=for-the-badge)
 ![PHP Badge](https://img.shields.io/badge/7.4%2B-joomla?logo=php&label=PHP&logoColor=white&color=darkgreen&labelColor=black&style=for-the-badge)
 
 ![Banner](media/email-tester.jpg)
@@ -9,7 +9,7 @@ This helps to confirm that the email settings are correct and the emails are sen
 The script supports all available Joomla mail configuration options, including SMTP and PHPMailer.
 
 # Usage
-1. Download the script
+1. Download the script [`email-test.php`](https://github.com/walitoff/joomla-email-test/blob/main/src/email-test.php)
 2. Upload it to the root of your Joomla installation
 3. Run the script from console (SSH)
 
