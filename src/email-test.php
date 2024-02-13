@@ -24,10 +24,12 @@ if (empty($argv[1])) {
     echo 'email-subject - optional email subject, default: "Test email from Joomla"' . PHP_EOL;
     echo 'email-body - optional email body in plain text format, default: "This is a test email from Joomla."' . PHP_EOL;
     echo 'Example: php email-test.php user@example.org "Test email from Joomla" "This is a test email from Joomla."' . PHP_EOL . PHP_EOL;
+    exit('Please provide email recipient as a first argument.' . PHP_EOL);
 }
 
 // Check a PHP version, we need 7.4 minimum
 if (version_compare(PHP_VERSION, '7.4.0') < 0) {
+    echo 'Detected PHP ' . PHP_VERSION . PHP_EOL;
     exit('This application requires PHP 7.4 or newer.' . PHP_EOL);
 }
 
@@ -37,9 +39,6 @@ if (!file_exists('configuration.php')) {
 }
 
 // Get email recipient from command line
-if (empty($argv[1])) {
-    exit('Please provide email recipient as a first argument.' . PHP_EOL);
-}
 $emailRecipient = $argv[1];
 
 // Get an optional email subject from command line
@@ -67,22 +66,44 @@ try {
     exit('Joomla framework not loaded.' . PHP_EOL);
 }
 
+if (!defined('JVERSION')) {
+    exit('Failed to detect Joomla version.' . PHP_EOL);
+}
+
+//Check if Joomla version is supported
+if (version_compare(JVERSION, '3.0.0', '<')) {
+    echo 'Detected Joomla ' . JVERSION . PHP_EOL;
+    exit('This application requires Joomla 3.0 or newer.' . PHP_EOL);
+}
+if (version_compare(JVERSION, '5.0.0', '>=')) {
+    echo 'Detected Joomla ' . JVERSION . PHP_EOL;
+    exit('This application does not support Joomla 5.0 or newer.' . PHP_EOL);
+}
+$isJoomla4 = version_compare(JVERSION, '4.0.0', '>=');
+
 // Get Joomla application
 try {
-    $app = JFactory::getApplication('site');
+    if ($isJoomla4) {
+        // Boot the DI container
+        $container = \Joomla\CMS\Factory::getContainer();
+        $container->alias('session.web', 'session.web.site')
+            ->alias('session', 'session.web.site')
+            ->alias('JSession', 'session.web.site')
+            ->alias(\Joomla\CMS\Session\Session::class, 'session.web.site')
+            ->alias(\Joomla\Session\Session::class, 'session.web.site')
+            ->alias(\Joomla\Session\SessionInterface::class, 'session.web.site');
+        $app = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+        $app->createExtensionNamespaceMap();
+    } else {
+        $app = JFactory::getApplication('site');
+    }
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . PHP_EOL;
     exit('Joomla application not loaded.' . PHP_EOL);
 }
 
 echo 'Detected PHP ' . PHP_VERSION . PHP_EOL;
-
-try {
-    echo 'Detected Joomla ' . JVERSION . PHP_EOL;
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . PHP_EOL;
-    exit('Failed to detect Joomla version.' . PHP_EOL);
-}
+echo 'Detected Joomla ' . JVERSION . PHP_EOL;
 
 // Show email parameters
 echo 'Email recipient: ' . $emailRecipient . PHP_EOL;
