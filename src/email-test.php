@@ -1,14 +1,37 @@
 <?php
 /**
- * Description: We send a test email using Joomla email settings.
- * Usage: php email-test.php email-recipient [email-subject] [email-body]
- * email-recipient - email recipient
- * email-subject - optional email subject, default: "Test email from Joomla"
- * email-body - optional email body in plain text format, default: "This is a test email from Joomla."
- * Example: php email-test.php user@example.org "Test email from Joomla" "This is a test email from Joomla."
+ * Joomla Email Test CLI Tool
  *
- * Author: Ramil Valitov<ramil@walitoff.com>
- * Web: https://walitoff.com
+ * A command-line utility for testing email functionality in Joomla sites.
+ * This tool sends a test email using the configured Joomla email settings,
+ * allowing administrators to verify that their email configuration is working correctly.
+ *
+ * Features:
+ * - Supports Joomla 3.x, 4.x, and 5.x
+ * - Uses Joomla's native email configuration
+ * - Command-line interface for easy automation
+ * - Customizable email subject and body
+ *
+ * Requirements:
+ * - PHP 7.4 or newer
+ * - Joomla 3.0 or newer
+ * - Must be run from Joomla root directory
+ * - CLI environment (command line)
+ *
+ * Usage: php email-test.php email-recipient [email-subject] [email-body]
+ *
+ * Parameters:
+ * - email-recipient: Email address to send the test email to (required)
+ * - email-subject: Custom email subject (optional, default: "Test email from Joomla")
+ * - email-body: Custom email body in plain text (optional, default: "This is a test email from Joomla.")
+ *
+ * Examples:
+ * - php email-test.php user@example.org
+ * - php email-test.php user@example.org "Test email from Joomla"
+ * - php email-test.php user@example.org "My Test Subject" "This is my custom test message."
+ *
+ * @author Ramil Valitov <ramil@walitoff.com>
+ * @link https://walitoff.com
  */
 
 // Checking if PHP is running in CLI mode
