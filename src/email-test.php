@@ -18,12 +18,20 @@ if (php_sapi_name() != 'cli') {
 
 // Show help
 if (empty($argv[1])) {
-    echo 'We send a test email using Joomla email settings.' . PHP_EOL;
-    echo 'Usage: php email-test.php email-recipient [email-subject] [email-body]' . PHP_EOL;
-    echo 'email-recipient - email recipient' . PHP_EOL;
-    echo 'email-subject - optional email subject, default: "Test email from Joomla"' . PHP_EOL;
-    echo 'email-body - optional email body in plain text format, default: "This is a test email from Joomla."' . PHP_EOL;
-    echo 'Example: php email-test.php user@example.org "Test email from Joomla" "This is a test email from Joomla."' . PHP_EOL . PHP_EOL;
+    echo <<<HELP
+We send a test email using Joomla email settings.
+
+Usage: php email-test.php email-recipient [email-subject] [email-body]
+
+Arguments:
+  email-recipient    Email recipient (required)
+  email-subject      Optional email subject, default: "Test email from Joomla"
+  email-body         Optional email body in plain text format, default: "This is a test email from Joomla."
+
+Example:
+  php email-test.php user@example.org "Test email from Joomla" "This is a test email from Joomla."
+
+HELP;
     exit('Please provide email recipient as a first argument.' . PHP_EOL);
 }
 
