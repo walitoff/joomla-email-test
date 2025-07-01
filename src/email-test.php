@@ -42,17 +42,33 @@ if (php_sapi_name() != 'cli') {
 // Show help
 if (empty($argv[1])) {
     echo <<<HELP
-We send a test email using Joomla email settings.
+Joomla Email Test CLI Tool
+
+A command-line utility for testing email functionality in Joomla sites.
+This tool sends a test email using your Joomla's configured email settings.
 
 Usage: php email-test.php email-recipient [email-subject] [email-body]
 
 Arguments:
-  email-recipient    Email recipient (required)
-  email-subject      Optional email subject, default: "Test email from Joomla"
-  email-body         Optional email body in plain text format, default: "This is a test email from Joomla."
+  email-recipient    Email address to send the test email to (required)
+  email-subject      Custom email subject (optional)
+                     Default: "Test email from Joomla"
+  email-body         Custom email body in plain text format (optional)
+                     Default: "This is a test email from Joomla."
 
-Example:
-  php email-test.php user@example.org "Test email from Joomla" "This is a test email from Joomla."
+Examples:
+  php email-test.php user@example.org
+  php email-test.php user@example.org "My Test Subject"
+  php email-test.php user@example.org "My Test Subject" "This is my custom test message."
+
+Requirements:
+  - PHP 7.4 or newer
+  - Joomla 3.0 or newer (supports Joomla 3.x, 4.x, and 5.x)
+  - Must be run from Joomla root directory
+  - CLI environment (command line)
+
+Note: The tool uses your Joomla site's email configuration (SMTP, sendmail, etc.)
+      as defined in the Global Configuration.
 
 HELP;
     exit('Please provide email recipient as a first argument.' . PHP_EOL);
