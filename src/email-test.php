@@ -75,24 +75,34 @@ if (version_compare(JVERSION, '3.0.0', '<')) {
     echo 'Detected Joomla ' . JVERSION . PHP_EOL;
     exit('This application requires Joomla 3.0 or newer.' . PHP_EOL);
 }
-if (version_compare(JVERSION, '5.0.0', '>=')) {
+if (version_compare(JVERSION, '6.0.0', '>=')) {
     echo 'Detected Joomla ' . JVERSION . PHP_EOL;
-    exit('This application does not support Joomla 5.0 or newer.' . PHP_EOL);
+    echo 'This application was not tested with Joomla 6.0 or newer.' . PHP_EOL;
 }
-$isJoomla4 = version_compare(JVERSION, '4.0.0', '>=');
+$isJoomla4Plus = version_compare(JVERSION, '4.0.0', '>=');
 
 // Get Joomla application
 try {
-    if ($isJoomla4) {
+    if ($isJoomla4Plus) {
+        // For Joomla 4+ CLI usage, bootstrap the application properly
         // Boot the DI container
         $container = \Joomla\CMS\Factory::getContainer();
+
+        // Set up session aliases for CLI compatibility
         $container->alias('session.web', 'session.web.site')
             ->alias('session', 'session.web.site')
             ->alias('JSession', 'session.web.site')
             ->alias(\Joomla\CMS\Session\Session::class, 'session.web.site')
             ->alias(\Joomla\Session\Session::class, 'session.web.site')
             ->alias(\Joomla\Session\SessionInterface::class, 'session.web.site');
+
+        // Create and configure the application
         $app = $container->get(\Joomla\CMS\Application\SiteApplication::class);
+
+        // Set the application in the factory
+        \Joomla\CMS\Factory::$application = $app;
+
+        // Create extension namespace map
         $app->createExtensionNamespaceMap();
     } else {
         $app = JFactory::getApplication('site');
@@ -112,7 +122,11 @@ echo 'Email body: ' . $emailBody . PHP_EOL;
 
 // Send email
 try {
-    $mailer = JFactory::getMailer();
+    if ($isJoomla4Plus) {
+        $mailer = \Joomla\CMS\Factory::getMailer();
+    } else {
+        $mailer = JFactory::getMailer();
+    }
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage() . PHP_EOL;
     exit('Joomla mailer not loaded.' . PHP_EOL);
